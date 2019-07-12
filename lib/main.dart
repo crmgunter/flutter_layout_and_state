@@ -48,7 +48,6 @@ class NameWidget extends StatefulWidget {
 }
 
 class _NameWidgetState extends State<NameWidget> {
-
   var name;
   final _formKey = GlobalKey<FormState>();
   final myController = TextEditingController();
@@ -92,16 +91,30 @@ class _NameWidgetState extends State<NameWidget> {
                     setState(() {
                       name = myController.text;
                     });
+                    return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          // Retrieve the text the that user has entered by using the
+                          // TextEditingController.
+                          content: Text('Your name is $name'),
+                        );
+                      },
+                    );
                   },
                   child: Text('Submit'),
                 ),
               ),
             ],
           ),
-        )
-        );
+        ));
   }
 }
+
+// ===============================================================
+// ===============================================================
+// ===============================================================
+// ===============================================================
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -185,6 +198,10 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    // Widget nameSection = Container(
+    //   child: NameWidget(),
+    // );
+
     return MaterialApp(
         title: 'Flutter Layout Demo',
         theme: ThemeData(
@@ -205,6 +222,7 @@ class MyApp extends StatelessWidget {
                 titleSection,
                 buttonSection,
                 textSection,
+                // nameSection,
                 NameWidget()
               ],
             )));

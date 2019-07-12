@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
+import 'widgets/form_screen.dart';
 
 void main() => runApp(MyApp());
+
+class FirstRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: RaisedButton(
+          child: Text('Open route'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FormWidget()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
 
 class FavoriteWidget extends StatefulWidget {
   @override
@@ -198,10 +218,6 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    // Widget nameSection = Container(
-    //   child: NameWidget(),
-    // );
-
     return MaterialApp(
         title: 'Flutter Layout Demo',
         theme: ThemeData(
@@ -222,8 +238,8 @@ class MyApp extends StatelessWidget {
                 titleSection,
                 buttonSection,
                 textSection,
-                // nameSection,
-                NameWidget()
+                NameWidget(),
+                FirstRoute()
               ],
             )));
   }

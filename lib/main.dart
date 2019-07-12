@@ -3,24 +3,24 @@ import 'widgets/form_screen.dart';
 
 void main() => runApp(MyApp());
 
-class FirstRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: RaisedButton(
-          child: Text('Open route'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FormWidget()),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
+// class FirstRoute extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Center(
+//         child: RaisedButton(
+//           child: Text('Open route'),
+//           onPressed: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(builder: (context) => FormWidget()),
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class FavoriteWidget extends StatefulWidget {
   @override
@@ -111,6 +111,12 @@ class _NameWidgetState extends State<NameWidget> {
                     setState(() {
                       name = myController.text;
                     });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              FormWidget(name: Name(name)),
+                        ));
                     return showDialog(
                       context: context,
                       builder: (context) {
@@ -239,7 +245,7 @@ class MyApp extends StatelessWidget {
                 buttonSection,
                 textSection,
                 NameWidget(),
-                FirstRoute()
+                // FirstRoute()
               ],
             )));
   }

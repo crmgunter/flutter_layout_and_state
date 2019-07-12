@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-
 class FavoriteWidget extends StatefulWidget {
   @override
   _FavoriteWidgetState createState() => _FavoriteWidgetState();
@@ -15,7 +14,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   _toggleFavorite() {
     setState(() {
       _isFavorited = !_isFavorited;
-      _favoriteCount = _isFavorited? _favoriteCount + 1 : _favoriteCount - 1;
+      _favoriteCount = _isFavorited ? _favoriteCount + 1 : _favoriteCount - 1;
     });
   }
 
@@ -43,11 +42,71 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   }
 }
 
+class NameWidget extends StatefulWidget {
+  @override
+  _NameWidgetState createState() => _NameWidgetState();
+}
+
+class _NameWidgetState extends State<NameWidget> {
+
+  var name;
+  final _formKey = GlobalKey<FormState>();
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(32),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                controller: myController,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Enter some text';
+                  }
+                  return null;
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: RaisedButton(
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false
+                    // otherwise.
+                    if (_formKey.currentState.validate()) {
+                      // If the form is valid, display a Snackbar.
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('Processing Data')));
+                    }
+                    setState(() {
+                      name = myController.text;
+                    });
+                  },
+                  child: Text('Submit'),
+                ),
+              ),
+            ],
+          ),
+        )
+        );
+  }
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
@@ -145,7 +204,8 @@ class MyApp extends StatelessWidget {
                 ),
                 titleSection,
                 buttonSection,
-                textSection
+                textSection,
+                NameWidget()
               ],
             )));
   }

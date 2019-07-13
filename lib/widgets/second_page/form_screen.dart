@@ -1,4 +1,3 @@
-import '../home_page/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../photo_screen/photo_screen.dart';
 
@@ -9,10 +8,7 @@ class BackToHomeButton extends StatelessWidget {
       child: Center(
         child: RaisedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyApp()),
-            );
+            Navigator.pop(context);
           },
           child: Text('Go back!'),
         ),
@@ -30,7 +26,7 @@ class TakePhotoButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PhotoScreen()),
+              new MaterialPageRoute(builder: (context) => new PhotoScreen()),
             );
           },
           child: Text('Take a photo!'),
@@ -70,27 +66,22 @@ class FormWidget extends StatelessWidget {
       ],
     );
 
-    return MaterialApp(
-        title: 'Flutter Layout Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(name.lastName),
         ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text(name.lastName),
+        body: ListView(
+          children: <Widget>[
+            Image.asset(
+              'images/lake.jpg',
+              height: 240.0,
+              width: 600.0,
+              fit: BoxFit.cover,
             ),
-            body: ListView(
-              children: <Widget>[
-                Image.asset(
-                  'images/lake.jpg',
-                  height: 240.0,
-                  width: 600.0,
-                  fit: BoxFit.cover,
-                ),
-                userData,
-                TakePhotoButton(),
-                BackToHomeButton(),
-              ],
-            )));
+            userData,
+            TakePhotoButton(),
+            BackToHomeButton(),
+          ],
+        ));
   }
 }

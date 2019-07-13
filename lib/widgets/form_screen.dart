@@ -22,19 +22,22 @@ class SecondRoute extends StatelessWidget {
 
 class Name {
   final String firstName;
+  final String lastName;
 
-  Name(this.firstName);
+  Name(this.firstName, this.lastName);
 }
 
 class FormWidget extends StatelessWidget {
   // This widget is the root of your application.
   final Name name;
-   FormWidget({Key key, @required this.name}) : super(key: key);
+  FormWidget({Key key, @required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    Widget userData = Container(child: Text(name.firstName),);
+    Widget userData = Container(
+      child: Text('Your first name: ' + name.firstName),
+      padding: const EdgeInsets.all(32),
+    );
 
     return MaterialApp(
         title: 'Flutter Layout Demo',
@@ -43,7 +46,7 @@ class FormWidget extends StatelessWidget {
         ),
         home: Scaffold(
             appBar: AppBar(
-              title: Text(name.firstName),
+              title: Text(name.lastName),
             ),
             body: ListView(
               children: <Widget>[

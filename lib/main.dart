@@ -69,14 +69,13 @@ class NameWidget extends StatefulWidget {
 
 class _NameWidgetState extends State<NameWidget> {
   var name;
+  String firstName, lastName;
   final _formKey = GlobalKey<FormState>();
-  final myController = TextEditingController();
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
+  void _submit() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+    }
   }
 
   @override
@@ -84,18 +83,36 @@ class _NameWidgetState extends State<NameWidget> {
     return Container(
         padding: const EdgeInsets.all(32),
         child: Form(
+          onChanged: () {
+            print(firstName);
+          },
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
-                controller: myController,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Enter some text';
-                  }
-                  return null;
-                },
+                decoration: InputDecoration(labelText: 'First Name:'),
+                // validator: (value) {
+                //   if (value.isEmpty) {
+                //     return 'Enter some text';
+                //   }
+                //   return null;
+                // },
+                validator: (value) =>
+                    value.isEmpty ? 'Must provide an input' : null,
+                onSaved: (input) => firstName = input,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Last Name:'),
+                // validator: (value) {
+                //   if (value.isEmpty) {
+                //     return 'Enter some text';
+                //   }
+                //   return null;
+                // },
+                validator: (input) =>
+                    input.isEmpty ? 'Must provide an input' : null,
+                onSaved: (input) => lastName = input,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -107,26 +124,14 @@ class _NameWidgetState extends State<NameWidget> {
                       // If the form is valid, display a Snackbar.
                       Scaffold.of(context).showSnackBar(
                           SnackBar(content: Text('Processing Data')));
+                      _submit();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                FormWidget(name: Name(firstName, lastName)),
+                          ));
                     }
-                    setState(() {
-                      name = myController.text;
-                    });
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              FormWidget(name: Name(name)),
-                        ));
-                    return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          // Retrieve the text the that user has entered by using the
-                          // TextEditingController.
-                          content: Text('Your name is $name'),
-                        );
-                      },
-                    );
                   },
                   child: Text('Submit'),
                 ),

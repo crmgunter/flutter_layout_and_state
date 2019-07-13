@@ -1,7 +1,8 @@
-import 'home_page/home_screen.dart';
+import '../home_page/home_screen.dart';
 import 'package:flutter/material.dart';
+import '../photo_screen/photo_screen.dart';
 
-class SecondRoute extends StatelessWidget {
+class BackToHomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,6 +15,25 @@ class SecondRoute extends StatelessWidget {
             );
           },
           child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+class TakePhotoButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PhotoScreen()),
+            );
+          },
+          child: Text('Take a photo!'),
         ),
       ),
     );
@@ -34,9 +54,20 @@ class FormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget userData = Container(
-      child: Text('Your first name: ' + name.firstName),
-      padding: const EdgeInsets.all(32),
+    final firstName = name.firstName;
+    final lastName = name.lastName;
+
+    Widget userData = Column(
+      children: <Widget>[
+        Container(
+            padding: const EdgeInsets.all(32),
+            child: Text(
+              'Hello, $firstName $lastName!',
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+            ))
+      ],
     );
 
     return MaterialApp(
@@ -57,7 +88,8 @@ class FormWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 userData,
-                SecondRoute(),
+                TakePhotoButton(),
+                BackToHomeButton(),
               ],
             )));
   }

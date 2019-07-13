@@ -1,4 +1,4 @@
-import '../main.dart';
+import 'home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SecondRoute extends StatelessWidget {

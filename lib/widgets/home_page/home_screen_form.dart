@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'form_screen.dart';
+import '../form_screen.dart';
 
 class NameWidget extends StatefulWidget {
   @override

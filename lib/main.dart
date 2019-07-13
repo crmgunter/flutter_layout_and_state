@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'widgets/home_screen.dart';
-import 'widgets/home_screen_form.dart';
-import 'widgets/favorite_button.dart';
+import 'widgets/home_page/home_screen.dart';
 
 void main() => runApp(MyApp());
-

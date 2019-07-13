@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../photo_screen/photo_screen.dart';
+import 'package:camera/camera.dart';
 
 class BackToHomeButton extends StatelessWidget {
   @override
@@ -26,7 +27,7 @@ class TakePhotoButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              new MaterialPageRoute(builder: (context) => new PhotoScreen()),
+              new MaterialPageRoute(builder: (context) => CameraPage()),
             );
           },
           child: Text('Take a photo!'),
